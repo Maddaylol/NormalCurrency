@@ -6,6 +6,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
@@ -64,8 +66,24 @@ private fun isValidCurrencyInput(input: String): Boolean {
     return input.all { it.isDigit() || it == '.' } && (input.count { it == '.' } <= 1)
 }
 
+
+@Composable
+fun CurrencyList(currencies: MutableList<String> ) {
+    LazyColumn {
+        items(currencies) {
+            CurrencyItem(Modifier, false, it)
+        }
+    }
+}
+
 @Preview
 @Composable
 fun CurrencyElementPreview() {
     CurrencyItem(Modifier, true, "100.00")
+}
+
+@Preview
+@Composable
+fun CurrencyListPreview() {
+    CurrencyList(mutableListOf("100.0", "22", "23","100.0", "22", "23"))
 }
